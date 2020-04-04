@@ -73,14 +73,16 @@ module.exports = () => {
     )
     console.log('found following peerDependencies:')
     console.log(treeify.asTree(depTree, true))
-    const dependenciesToInstall = flat(Object.entries(depTree)
-        .map((entry) => entry[1])
-        .filter((peerDeps) => Object.keys(peerDeps).length > 0)
-        .map((peerDeps) =>
-            Object.keys(peerDeps).map(
-                (depName) => `${depName}@${peerDeps[depName]}`
+    const dependenciesToInstall = flat(
+        Object.entries(depTree)
+            .map((entry) => entry[1])
+            .filter((peerDeps) => Object.keys(peerDeps).length > 0)
+            .map((peerDeps) =>
+                Object.keys(peerDeps).map(
+                    (depName) => `${depName}@${peerDeps[depName]}`
+                )
             )
-        ))
+    ).sort()
     if (dependenciesToInstall.length > 0) {
         if (!!args.dryRun) {
             console.warn(
