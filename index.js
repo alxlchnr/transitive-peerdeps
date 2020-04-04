@@ -3,6 +3,7 @@ const minimist = require('minimist')
 const treeify = require('treeify')
 const spawn = require('cross-spawn')
 const fromEntries = require('object.fromentries')
+const flat = require('array.prototype.flat')
 const fs = require('fs')
 
 const getDepsMatchingFilters = (
@@ -72,15 +73,14 @@ module.exports = () => {
     )
     console.log('found following peerDependencies:')
     console.log(treeify.asTree(depTree, true))
-    const dependenciesToInstall = Object.entries(depTree)
+    const dependenciesToInstall = flat(Object.entries(depTree)
         .map((entry) => entry[1])
         .filter((peerDeps) => Object.keys(peerDeps).length > 0)
         .map((peerDeps) =>
             Object.keys(peerDeps).map(
                 (depName) => `${depName}@${peerDeps[depName]}`
             )
-        )
-        .flat()
+        ))
     if (dependenciesToInstall.length > 0) {
         if (!!args.dryRun) {
             console.warn(

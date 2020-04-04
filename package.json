@@ -34,6 +34,7 @@
     "transitive-peerdeps": "bin/transitive-peerdeps"
   },
   "dependencies": {
+    "array.prototype.flat": "^1.2.3",
     "braces": "^3.0.2",
     "cross-spawn": "^7.0.2",
     "fill-range": "^7.0.1",
