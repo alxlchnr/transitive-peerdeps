@@ -1,6 +1,5 @@
 const path = require('path')
 const minimist = require('minimist')
-const micromatch = require('micromatch')
 const treeify = require('treeify')
 const spawn = require('cross-spawn')
 const fs = require('fs')
@@ -8,18 +7,15 @@ const fs = require('fs')
 const getDepsMatchingFilters = (
     packageJsonPath,
     dependencyType,
-    globFilterString
+    filterRegexString
 ) => {
     if (fs.existsSync(packageJsonPath)) {
         const packageJson = require(packageJsonPath)
         const deps = Object.keys(packageJson[dependencyType] || {}).filter(
             (dep) => {
-                if (!!globFilterString) {
-                    let globPatterns = globFilterString
-                        .split(',')
-                        .map((s) => s.trim())
-                        .filter(Boolean)
-                    return micromatch.isMatch(dep, globPatterns)
+                const filter = toRegex(filterRegexString)
+                if (!!filter) {
+                    return filter.test(dep)
                 }
                 return true
             }
@@ -53,17 +49,15 @@ const installDependencies = (deps, cwd) => {
     })
 }
 
-
 module.exports = () => {
     const defaultArgs = { cwd: process.cwd() }
     const cliArgs = minimist(process.argv.slice(2))
     const args = Object.assign(defaultArgs, cliArgs)
     let packageJsonPath = path.join(args.cwd, 'package.json')
-    let globFilterString = args.depFilter
     let depsMatchingFilters = getDepsMatchingFilters(
         packageJsonPath,
         'dependencies',
-        globFilterString
+        args.depFilter
     )
     let depTree = Object.fromEntries(
         Object.keys(depsMatchingFilters).map((dep) => {
@@ -88,13 +82,23 @@ module.exports = () => {
         .flat()
     if (dependenciesToInstall.length > 0) {
         if (!!args.dryRun) {
-            console.warn('dry run => will not install', ...dependenciesToInstall)
+            console.warn(
+                'dry run => will not install',
+                ...dependenciesToInstall
+            )
             return
         }
         console.log('will install', dependenciesToInstall)
         installDependencies(dependenciesToInstall, args.cwd)
     } else {
-
         console.log('no peerDependencies to install')
+    }
+}
+
+const toRegex = (aString) => {
+    try {
+        return new RegExp(aString)
+    } catch (_) {
+        return null
     }
 }

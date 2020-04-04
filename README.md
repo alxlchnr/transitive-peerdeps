@@ -15,6 +15,6 @@ Before executing ensure, that you have installed the dependencies/run `npm insta
 
 ## Options
 * `--cwd`: Working directory, of where the tool should look for a package.json and checks for peerDependencies of your dependencies
-* `--depFilter`: glob pattern to process only peerDependencies of dependencies matching the pattern
-* `--peerDepFilter`: glob pattern to install only peerDependencies matching the pattern
+* `--depFilter`: regex pattern to process only peerDependencies of dependencies matching the pattern
+* `--peerDepFilter`: regex pattern to install only peerDependencies matching the pattern
 * `--dryRun`: skip the install step. 
