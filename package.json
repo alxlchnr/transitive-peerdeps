@@ -1,0 +1,47 @@
+{
+  "name": "transitive-peerdeps",
+  "version": "0.0.1",
+  "description": "List and install peerDependencies of your direct dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "keywords": [
+    "peerDependency",
+    "transitive",
+    "dependency",
+    "peerDeps",
+    "deps"
+  ],
+  "author": "alxlchnr",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^4.2.3",
+    "jasmine": "^3.5.0",
+    "prettier": "^2.0.2",
+    "pretty-quick": "^2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "bin": {
+    "transitive-peerdeps": "bin/transitive-peerdeps"
+  },
+  "dependencies": {
+    "braces": "^3.0.2",
+    "cross-spawn": "^7.0.2",
+    "fill-range": "^7.0.1",
+    "isexe": "^2.0.0",
+    "micromatch": "^4.0.2",
+    "minimist": "^1.2.5",
+    "path-key": "^3.1.1",
+    "picomatch": "^2.2.2",
+    "shebang-command": "^2.0.0",
+    "shebang-regex": "^3.0.0",
+    "to-regex-range": "^5.0.1",
+    "treeify": "^1.1.0",
+    "which": "^2.0.2"
+  }
+}
