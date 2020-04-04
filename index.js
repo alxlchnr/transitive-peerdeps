@@ -2,6 +2,7 @@ const path = require('path')
 const minimist = require('minimist')
 const treeify = require('treeify')
 const spawn = require('cross-spawn')
+const fromEntries = require('object.fromentries')
 const fs = require('fs')
 
 const getDepsMatchingFilters = (
@@ -20,7 +21,7 @@ const getDepsMatchingFilters = (
                 return true
             }
         )
-        return Object.fromEntries(
+        return fromEntries(
             deps.map((dep) => [dep, packageJson[dependencyType][dep]])
         )
     } else {
@@ -59,7 +60,7 @@ module.exports = () => {
         'dependencies',
         args.depFilter
     )
-    let depTree = Object.fromEntries(
+    let depTree = fromEntries(
         Object.keys(depsMatchingFilters).map((dep) => {
             const peerDeps = getDepsMatchingFilters(
                 path.join(args.cwd, 'node_modules', dep, 'package.json'),
