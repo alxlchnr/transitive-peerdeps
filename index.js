@@ -27,23 +27,27 @@ const buildDependencyTree = require('./lib/dependency.util').buildDependencyTree
 const getDepsMatchingFilters = require('./lib/dependency.util')
     .getDepsMatchingFilters
 
+function isVersionTag(prev) {
+    return !semver.valid(prev) && !semver.validRange(prev)
+}
+
 const reduceVersions = (dep) => (prev, curr) => {
     if (semver.valid(prev) && semver.valid(curr)) {
         return semver.gt(curr, prev, {
-            includePrerelease: true,
+            includePrerelease: true
         })
             ? curr
             : prev
     }
-    if (!semver.valid(prev) && !semver.validRange(prev)) {
-        if (semver.valid(curr) || semver.validRange(curr)) {
-            return curr
-        }
+    if (isVersionTag(prev) && isVersionTag(curr)) {
+        return curr
     }
-    if (!semver.valid(curr) && !semver.validRange(curr)) {
-        if (semver.valid(prev) || semver.validRange(prev)) {
-            return prev
-        }
+
+    if (isVersionTag(prev) && !isVersionTag(curr)) {
+        return curr
+    }
+    if (isVersionTag(curr) && !isVersionTag(prev)) {
+        return prev
     }
     if (semver.valid(prev) && semver.validRange(curr)) {
         if (semver.outside(prev, semver.validRange(curr), '>')) {
@@ -67,6 +71,7 @@ const reduceVersions = (dep) => (prev, curr) => {
         return union([prev], [curr]).reduce(reduceVersions(dep))
     }
 }
+
 function filterVersions(dependenciesToInstall) {
     Object.keys(dependenciesToInstall).forEach((dep) => {
         dependenciesToInstall[dep] = dependenciesToInstall[dep].reduce(
