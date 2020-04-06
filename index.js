@@ -35,14 +35,30 @@ const reduceVersions = (dep) => (prev, curr) => {
             ? curr
             : prev
     }
-    if (semver.valid(prev)) {
-        if (semver.outside(prev, semver.validRange(curr), '>')) {
+    if (!semver.valid(prev) && !semver.validRange(prev)) {
+        if (semver.valid(curr) || semver.validRange(curr)) {
+            return curr
+        }
+    }
+    if (!semver.valid(curr) && !semver.validRange(curr)) {
+        if (semver.valid(prev) || semver.validRange(prev)) {
             return prev
         }
     }
-    if (semver.valid(curr)) {
+    if (semver.valid(prev) && semver.validRange(curr)) {
+        if (semver.outside(prev, semver.validRange(curr), '>')) {
+            return prev
+        }
+        if (semver.outside(prev, semver.validRange(curr), '<')) {
+            return curr
+        }
+    }
+    if (semver.valid(curr) && semver.validRange(prev)) {
         if (semver.outside(curr, semver.validRange(prev), '>')) {
             return curr
+        }
+        if (semver.outside(curr, semver.validRange(prev), '<')) {
+            return prev
         }
     }
     try {
