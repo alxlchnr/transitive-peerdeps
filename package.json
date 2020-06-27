@@ -4,7 +4,8 @@
   "description": "List and install peerDependencies of your direct dependencies",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "release": "standard-version"
   },
   "keywords": [
     "peerDependency",
@@ -23,7 +24,8 @@
     "husky": "^4.2.3",
     "jasmine": "^3.5.0",
     "prettier": "^2.0.2",
-    "pretty-quick": "^2.0.1"
+    "pretty-quick": "^2.0.1",
+    "standard-version": "^8.0.0"
   },
   "husky": {
     "hooks": {
