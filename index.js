@@ -5,6 +5,7 @@ const installDependencies = require('./lib/npm-install.action')
 const semver = require('semver')
 const intersect = require('semver-intersect').intersect
 const union = require('semver-intersect').union
+const dependencyTypes = require('./lib/dependency-types')
 
 function groupByDependencyName(depTree) {
     return Object.entries(depTree)
@@ -80,10 +81,10 @@ function filterVersions(dependenciesToInstall) {
     })
 }
 
-function filterAlreadyInstalledDeps(packageJsonPath, dependenciesToInstall) {
+function filterAlreadyInstalledDeps(packageJsonPath, dependenciesToInstall, dependencyType) {
     const alreadyInstalledDependencies = getDepsMatchingFilters(
         packageJsonPath,
-        'dependencies'
+        dependencyType
     )
     Object.keys(dependenciesToInstall)
         .filter((dep) => {
@@ -98,18 +99,21 @@ module.exports = () => {
     const args = Object.assign(defaultArgs, cliArgs)
     args.cwd = path.resolve(args.cwd)
     const packageJsonPath = path.join(args.cwd, 'package.json')
+    let dependencyType = args.dev ? dependencyTypes.devDependencies : dependencyTypes.dependencies
+    console.log(`Will use ${dependencyType} as scan and installation target`)
     const depTree = buildDependencyTree(
         args.cwd,
         packageJsonPath,
         args.depFilter,
-        args.peerDepFilter
+        args.peerDepFilter,
+        dependencyType
     )
     console.log('found following peerDependencies:')
     console.log(treeify.asTree(depTree, true))
     const dependenciesToInstall = groupByDependencyName(depTree)
     filterVersions(dependenciesToInstall)
     if (!args.force) {
-        filterAlreadyInstalledDeps(packageJsonPath, dependenciesToInstall)
+        filterAlreadyInstalledDeps(packageJsonPath, dependenciesToInstall, dependencyType)
     }
     const installList = Object.entries(dependenciesToInstall).map((entry) =>
         entry.join('@')
@@ -120,7 +124,7 @@ module.exports = () => {
             return
         }
         console.log('will install', installList)
-        installDependencies(installList, args.cwd)
+        installDependencies(installList, args.cwd, dependencyType)
     } else {
         console.log('no peerDependencies to install')
     }
