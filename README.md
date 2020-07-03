@@ -21,3 +21,4 @@ Before executing ensure, that you have installed the dependencies/run `npm insta
 * `--peerDepFilter`: regex pattern to install only peerDependencies matching the pattern
 * `--dryRun`: skip the install step. 
 * `--force`: install peerDependencies regardless if they are already part of your package.json and therefore already installed.
+* `--dev`: use devDependencies instead of dependencies
