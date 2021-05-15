@@ -11,9 +11,13 @@ deploy:
   on:
     repo: alxlchnr/transitive-peerdeps
     branch: master
+    condition: $TRAVIS_COMMIT_MESSAGE != /^chore\(release\)/
 
 before_deploy:
   - npm run release
+
+after_deploy:
+  - git push --tags
 
 notifications:
   email:
