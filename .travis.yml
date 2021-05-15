@@ -1,3 +1,22 @@
 language: node_js
 node_js:
   - lts/*
+
+deploy:
+  provider: npm
+  email: alxlchnr@gmail.com
+  api_key: ${API_TOKEN}
+  script: "npm run release"
+  skip_cleanup: true
+  on:
+    branch: master
+
+before_deploy:
+  - npm run release
+
+notifications:
+  email:
+    recipients:
+      - alxlchnr@gmail.com
+    on_success: change
+    on_failure: always
