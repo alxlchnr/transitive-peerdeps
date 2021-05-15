@@ -9,6 +9,7 @@ deploy:
   script: "npm run release"
   skip_cleanup: true
   on:
+    repo: alxlchnr/transitive-peerdeps
     branch: master
 
 before_deploy:
