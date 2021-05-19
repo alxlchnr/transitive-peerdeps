@@ -1,4 +1,4 @@
-if: NOT commit_message =~ /^chore\(release\)/
+if: commit_message !~ /^chore\(release\)/
 language: node_js
 git:
   depth: false
