@@ -12,7 +12,7 @@ deploy:
   on:
     repo: alxlchnr/transitive-peerdeps
     branch: master
-    condition: NOT branch =~ /^chore\(release\)/
+    condition: NOT ($TRAVIS_COMMIT_MESSAGE =~ /^chore\(release\)/)
 before_deploy:
   - git config --global user.name "Travis CI"
   - git config --global user.email "alxlchnr@gmail.com"
