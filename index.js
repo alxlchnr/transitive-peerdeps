@@ -75,7 +75,7 @@ const reduceVersions = (dep) => (prev, curr) => {
 
 function filterVersions(dependenciesToInstall) {
     Object.keys(dependenciesToInstall).forEach((dep) => {
-        let validVersions = dependenciesToInstall[dep].filter(semver.valid)
+        let validVersions = dependenciesToInstall[dep].filter(semver.coerce)
         if (validVersions.length === 0) {
             console.warn(`no valid versions for ${dep}: ${dependenciesToInstall[dep]}`)
             return

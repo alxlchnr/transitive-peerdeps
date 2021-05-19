@@ -22,8 +22,8 @@ before_deploy:
   - git fetch --tags
   - npm run release
 after_deploy:
-  - git push origin HEAD:master
   - git push --tags origin HEAD:master
+  - git push origin HEAD:master
 notifications:
   email:
     recipients:
