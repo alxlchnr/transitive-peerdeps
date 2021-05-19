@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.19](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.3.18...v0.3.19) (2021-05-19)
+
 ### [0.3.18](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.3.16...v0.3.18) (2021-05-19)
 
 ### [0.3.16](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.3.15...v0.3.16) (2021-05-19)
