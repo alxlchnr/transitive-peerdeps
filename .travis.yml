@@ -19,7 +19,7 @@ before_deploy:
   - npm run release
 after_deploy:
   - git config credential.helper "store --file=.git/credentials"
-  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+  - echo "https://${GITHUB_TOKEN}:@github.com" > .git/credentials
   - git push -f -q https://${GITHUB_TOKEN}@github.com/alxlchnr/transitive-peerdeps.git master
   - git push --tags -q https://${GITHUB_TOKEN}@github.com/alxlchnr/transitive-peerdeps.git master
 notifications:
