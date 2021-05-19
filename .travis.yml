@@ -17,6 +17,7 @@ before_deploy:
   - npm run release
 
 after_deploy:
+  - git push
   - git push --tags
 
 notifications:
