@@ -1,0 +1,32 @@
+if: commit_message !~ /^chore\(release\)/
+language: node_js
+git:
+  depth: false
+node_js:
+- lts/*
+deploy:
+  provider: npm
+  email: alxlchnr@gmail.com
+  api_key: "${API_TOKEN}"
+  script: npm run release
+  skip_cleanup: true
+  on:
+    repo: alxlchnr/transitive-peerdeps
+    branch: master
+    tags: false
+before_deploy:
+  - git config --global user.name "Travis CI"
+  - git config --global user.email "alxlchnr@gmail.com"
+  - git config --global push.default simple
+  - git remote set-url origin https://${GITHUB_TOKEN}@github.com/alxlchnr/transitive-peerdeps.git
+  - git fetch --tags
+  - npm run release
+after_deploy:
+  - git push --tags origin HEAD:master
+  - git push origin HEAD:master
+notifications:
+  email:
+    recipients:
+      - alxlchnr@gmail.com
+    on_success: change
+    on_failure: always
