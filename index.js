@@ -128,8 +128,24 @@ module.exports = () => {
             console.warn('dry run => will not install', ...installList)
             return
         }
+
+        const { cwd } = args;
+
+        // Legacy support for --dev argument
+        if (args.dev) {
+            args['save-dev'] = true;
+        }
+
+        // Remove custom arguments
+        delete args.cwd
+        delete args.depFilter
+        delete args.peerDepFilter
+        delete args.force
+        delete args.dev
+        delete args._
+
         console.log('will install', installList)
-        installDependencies(installList, args.cwd, dependencyType)
+        installDependencies(installList, cwd, args)
     } else {
         console.log('no peerDependencies to install')
     }
