@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.3.22...v0.4.2) (2021-05-20)
+
+
+### Features
+
+* Support for native npm arguments ([#6](https://github.com/alxlchnr/transitive-peerdeps/issues/6)) ([d869a4f](https://github.com/alxlchnr/transitive-peerdeps/commit/d869a4f155246266af2048d91d53cac4de87fabd))
+
 ### [0.3.22](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.3.21...v0.3.22) (2021-05-20)
 
 ### [0.3.21](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.3.20...v0.3.21) (2021-05-19)
