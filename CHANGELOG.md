@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.12](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.4.11...v0.4.12) (2022-04-13)
+
+
+### Bug Fixes
+
+* warning for empty peerDependencies ([3fa0c53](https://github.com/alxlchnr/transitive-peerdeps/commit/3fa0c53134d6a2acfc35c9c9fb25c3557268cac7))
+
 ### [0.4.11](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.4.10...v0.4.11) (2022-04-13)
 
 
