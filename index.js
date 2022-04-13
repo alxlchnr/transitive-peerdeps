@@ -10,6 +10,7 @@ const dependencyTypes = require('./lib/dependency-types')
 function groupByDependencyName(depTree) {
     return Object.entries(depTree)
         .map((entry) => entry[1])
+        .filter(value=>!!value)
         .filter((peerDeps) => Object.keys(peerDeps).length > 0)
         .reduce((previousValue, currentValue) => {
             let newValue = previousValue
