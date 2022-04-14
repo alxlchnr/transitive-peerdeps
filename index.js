@@ -12,12 +12,12 @@ function groupByDependencyName(depTree) {
         .map((entry) => {
 
             let peerDependencies = entry[1]
-            if(!peerDependencies){
+            if (!peerDependencies) {
                 console.warn(`no peerDependencies for ${entry[0]}`)
             }
             return peerDependencies
         })
-        .filter(value=>!!value)
+        .filter(value => !!value)
         .filter((peerDeps) => Object.keys(peerDeps).length > 0)
         .reduce((previousValue, currentValue) => {
             let newValue = previousValue
@@ -77,7 +77,12 @@ const reduceVersions = (dep) => (prev, curr) => {
     try {
         return intersect(prev, curr)
     } catch (_) {
-        return union([prev], [curr]).reduce(reduceVersions(dep))
+        console.warn(`No intersection of ${dep}@${prev} and ${dep}@${curr} possible. Try a union or use highest version instead`)
+        let unionVersion = union([prev], [curr])
+        if(unionVersion.length>1){
+            unionVersion = unionVersion.map(semver.coerce).sort(semver.compare).slice(-1)
+        }
+        return unionVersion.reduce(reduceVersions(dep))
     }
 }
 
@@ -137,11 +142,11 @@ module.exports = () => {
             return
         }
 
-        const { cwd } = args;
+        const { cwd } = args
 
         // Legacy support for --dev argument
         if (args.dev) {
-            args['save-dev'] = true;
+            args['save-dev'] = true
         }
 
         // Remove custom arguments
