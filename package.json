@@ -1,6 +1,6 @@
 {
   "name": "transitive-peerdeps",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "description": "List and install peerDependencies of your direct dependencies",
   "main": "index.js",
   "scripts": {

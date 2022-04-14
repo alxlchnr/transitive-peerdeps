@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.13](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.4.12...v0.4.13) (2022-04-14)
+
+
+### Features
+
+* handle dependency versions without intersections ([73345b8](https://github.com/alxlchnr/transitive-peerdeps/commit/73345b8d2de89152dd49c45c089f35e9537a4e05))
+
 ### [0.4.12](https://github.com/alxlchnr/transitive-peerdeps/compare/v0.4.11...v0.4.12) (2022-04-13)
 
 
